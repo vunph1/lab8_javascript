@@ -1,0 +1,145 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai4 - asm</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <table>
+        <form>
+            <tr><th><h3>ĐĂNG KÝ THÀNH VIÊN</h3></th></tr>
+
+            <tr><td>Mã sinh viên</td></tr>
+            <tr><td><input type="text" id="masv" class="txt"></td></tr>
+
+            <tr><td>Họ và tên</td></tr>
+            <tr><td><input type="text" id="hoten" class="txt"></td></tr>
+
+            <tr><td>Email</td></tr>
+            <tr><td><input type="text" id="email"></td></tr>
+
+            <tr><td>Giới tính</td></tr>
+            <tr>
+                <td>
+                    <fieldset  id="fs1">
+                        <input name="phai" type="radio">Nam
+                        <input name="phai" type="radio">Nữ<br>
+                    </fieldset>
+                </td>
+            </tr>
+
+            <tr><td>Sở thích</td></tr>
+            <tr>
+                <td>
+                    <fieldset id="fs2">
+                        <input name="st" type="checkbox">Du lịch
+                        <input name="st" type="checkbox">Đọc sách
+                        <input name="st" type="checkbox">Ẩm thực
+                        <input name="st" type="checkbox">Âm nhạc
+                        <input name="st" type="checkbox">khác
+                    </fieldset>
+                </td>
+            </tr>
+
+            <tr><td>Quốc tịch</td></tr>
+            <tr>
+                <td>
+                    <select name="quoctich" id="quoctich" class="txt">
+                        <option value="0">Chọn quốc tịch</option>
+                        <option value="1">VietNam</option>
+                        <option value="2">Japan</option>
+                        <option value="3">Mỹ</option>
+                    </select>
+                </td>
+            </tr>
+            <tr><td>Ghi chú</td></tr>
+            <tr><td><textarea class="txt" id="ghichu" cols="90" rows="5"></textarea></td></tr>
+
+            <tr><td id="button"><Button type="button" id="dangki" onclick=" kiemtra();">Đăng kí</Button> <div id="baoloi"></div></td></tr>
+        </form>
+    </table>
+</body>
+<script>
+    function kiemtra(){
+        var loi = "";
+        // kiểm tra mã sv
+        var masv = document.getElementById("masv");
+        if(masv.value==""){
+            masv.className = "loi";
+            loi += "Mã sinh viên không được bỏ trống <br>";
+        }else if(masv.value.length != 7){
+            masv.className="loi";
+            loi += "Mã sinh viên phải đủ 7 ký tự <br>";
+        }else{
+            masv.className = "txt";
+        }
+        // Kiểm tra họ tên
+        var hoten = document.getElementById("hoten");
+        if(hoten.value==""){
+            hoten.className = "loi";
+            loi += "Họ tên không được để trống <br>";
+        }else if(hoten.value.length > 30){
+            hoten.className = "loi";
+            loi += "Họ tên quá dài <br>";
+        }else{
+            hoten.className = "txt";
+        }
+        // Kiểm tra email
+        var email = document.getElementById("email");
+        if(email.value==""){
+            email.className = "loi";
+            loi += "Email không được để trống. <br>"
+        }else{
+            email.className = "txt";
+        }
+        // Kiểm tra giới tính
+        dem = 0;
+        var gioitinh = document.getElementsByName("phai");
+        for( var i=0; i < gioitinh.length; i++){
+            if(gioitinh[i].checked) dem++;
+        }
+        if(dem==0){
+            document.getElementById("fs1").className="loi";
+            loi += "Phải chọn giới tính <br>";
+        }else{
+            document.getElementById("fs1").className="";
+        }
+        // Kiểm tra sở thích
+        var sothich = document.getElementsByName("st");
+        dem=0;
+        for(var i=0; i < sothich.length; i++){
+            if(sothich[i].checked) dem++;
+        }
+        if(dem==0){
+            document.getElementById("fs2").className = "loi";
+            loi += "Phải chọn ít nhất 1 sở thích <br>";
+        }else{
+            document.getElementById("fs2").className="";
+        }
+        // Kiểm tra quốc tịch
+        var qt = document.getElementById("quoctich");
+        if(qt.value==0){
+            qt.className = "loi";
+            loi += "Phải chọn quốc tịch <br>";
+        }else{
+            qt.className = "txt";
+        }
+        // Kiểm tra ghi chú
+        var gc = document.getElementById("ghichu");
+        if(gc.value.length > 200){
+            gc.className = "loi";
+            loi += "Ghi chú phải dưới 200 kí tự";
+        }else{
+            gc.className = "txt";
+        }
+
+        if(loi!=""){
+            document.getElementById('baoloi').innerHTML = loi;
+            setTimeout("document.getElementById('baoloi').innerHTML=''",5000);
+            return false;
+        }
+    }
+</script>
+</html>
